@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -32,6 +33,10 @@ public class Consulta {
 	@ManyToOne
 	@JoinColumn(name = "cons_factura_id")
 	private Factura factura;
+
+	@OneToOne
+	@JoinColumn(name = "cons_serviciomedico_id")
+	private ServiciosMedicos serviciosMedicos;
 
 	public Integer getId() {
 		return id;

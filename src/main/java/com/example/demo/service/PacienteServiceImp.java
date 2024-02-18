@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.demo.modelo.Paciente;
 import com.example.demo.repository.IPacienteRepository;
+import com.example.demo.service.to.PacienteTO;
 
 @Service
 public class PacienteServiceImp implements IPacienteService {
@@ -48,6 +48,44 @@ public class PacienteServiceImp implements IPacienteService {
 	public void borrar(Integer id) {
 		// TODO Auto-generated method stub
 		this.pacienteRepository.eliminar(id);
+	}
+
+	@Override
+	public PacienteTO buscarTO(Integer id) {
+		// TODO Auto-generated method stub
+		return this.convertirTO(this.pacienteRepository.seleccionar(id));
+	}
+
+	private PacienteTO convertirTO(Paciente pac) {
+		PacienteTO pacT = new PacienteTO();
+		pacT.setId(pac.getId());
+		pacT.setApellido(pac.getApellido());
+		pacT.setNombre(pac.getNombre());
+		pacT.setCedula(pac.getCedula());
+		pacT.setDireccion(pac.getDireccion());
+		pacT.setFechaNacimiento(pac.getFechaNacimiento());
+		pacT.setRol(pac.getRol());
+		pacT.setTelefono(pac.getTelefono());
+		return pacT;
+	}
+
+	private Paciente convertir(PacienteTO pac) {
+		Paciente pacT = new Paciente();
+		pacT.setId(pac.getId());
+		pacT.setApellido(pac.getApellido());
+		pacT.setNombre(pac.getNombre());
+		pacT.setCedula(pac.getCedula());
+		pacT.setDireccion(pac.getDireccion());
+		pacT.setFechaNacimiento(pac.getFechaNacimiento());
+		pacT.setRol(pac.getRol());
+		pacT.setTelefono(pac.getTelefono());
+		return pacT;
+	}
+
+	@Override
+	public void guardarTo(PacienteTO paciente) {
+		// TODO Auto-generated method stub
+		this.guardar(this.convertir(paciente));
 	}
 
 }

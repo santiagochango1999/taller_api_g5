@@ -7,13 +7,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "historiaClinica")
 public class HistoriaClinica {
-	
+
 	@Id
 	@GeneratedValue(generator = "seq_hicl", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "seq_hicl", sequenceName = "seq_hicl", allocationSize = 1)
@@ -27,37 +29,47 @@ public class HistoriaClinica {
 	private String tratamiento;
 	@Column(name = "hicl_observaciones")
 	private String observaciones;
+	@OneToOne
+	@JoinColumn(name = "paciente_id")
+	private Paciente paciente;
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public LocalDateTime getFecha() {
 		return fecha;
 	}
+
 	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
+
 	public String getDiagnostico() {
 		return diagnostico;
 	}
+
 	public void setDiagnostico(String diagnostico) {
 		this.diagnostico = diagnostico;
 	}
+
 	public String getTratamiento() {
 		return tratamiento;
 	}
+
 	public void setTratamiento(String tratamiento) {
 		this.tratamiento = tratamiento;
 	}
+
 	public String getObservaciones() {
 		return observaciones;
 	}
+
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
 	}
-	
-	
 
 }

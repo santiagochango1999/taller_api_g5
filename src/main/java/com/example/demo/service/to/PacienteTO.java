@@ -1,8 +1,15 @@
 package com.example.demo.service.to;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import org.springframework.hateoas.RepresentationModel;
 
-public class PacienteTO {
+
+public class PacienteTO extends RepresentationModel<PacienteTO> implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 50167184878076823L;
 	private Integer id;
 	private String nombre;
 	private String apellido;

@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -23,6 +24,9 @@ public class ServiciosMedicos {
 	private String nombre;
 	@Column(name = "srmd_costo")
 	private BigDecimal costo;
+	
+	@OneToOne(mappedBy = "serviciosMedicos")
+	private Consulta consulta;
 
 	// GET Y SET
 	public Integer getId() {
