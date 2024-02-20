@@ -8,6 +8,7 @@ import com.example.demo.modelo.Factura;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 
 @Repository
@@ -45,7 +46,8 @@ public class FacturaRepositoryImp implements IFacturaRepository {
 	@Override
 	public List<Factura> seleccionartodo() {
 		// TODO Auto-generated method stub
-		return null;
+		Query query=this.entityManager.createQuery("SELECT f FROM Factura f");
+		return query.getResultList();
 	}
 
 	@Override
