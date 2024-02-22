@@ -28,40 +28,41 @@ public class PacienteControllerRestFul {
 
 	@Autowired
 	private IPacienteService pacienteService;
-	
-	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<PacienteTO> buscar(@PathVariable Integer id) {
-		PacienteTO pacienteto=this.pacienteService.buscarTO(id);
+
+	@GetMapping(path = "/{cedula}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<PacienteTO> buscar(@PathVariable String cedula) {
+		PacienteTO pacienteto = this.pacienteService.buscarTO(cedula);
 		return ResponseEntity.status(200).body(pacienteto);
 	}
-	
-	
+
+	@GetMapping(params = "cedula", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> verificarCedulaExistente(@RequestParam String cedula) {
+		boolean cedulaExistente = this.pacienteService.verificarCedulaExistente(cedula);
+		System.out.println(ResponseEntity.ok(cedulaExistente));
+		return ResponseEntity.ok(cedulaExistente);
+	}
+
 	@GetMapping
-	public List<Paciente> buscartodos(@RequestParam(required = false, defaultValue = "M") String genero){
+	public List<Paciente> buscartodos(@RequestParam(required = false, defaultValue = "M") String genero) {
 		return this.pacienteService.buscartodos(genero);
 	}
-	
-	
+
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void guardar(@RequestBody PacienteTO pacienteTO) {
 		this.pacienteService.guardarTo(pacienteTO);
 	}
-	
+
 	// http://localhost:8080/API/v1.0/Registro/pacientes
-	
+
 	@PutMapping(path = "/{id}")
-	public void actualizar(@RequestBody Paciente paciente,@PathVariable Integer id) {
+	public void actualizar(@RequestBody Paciente paciente, @PathVariable Integer id) {
 		paciente.setId(id);
 		this.pacienteService.actualizar(paciente);
 	}
-	
+
 	@PatchMapping(path = "/{id}")
-	public void actualizarParcial(@RequestBody Paciente paciente,@PathVariable Integer id) {
+	public void actualizarParcial(@RequestBody Paciente paciente, @PathVariable Integer id) {
 		this.pacienteService.actualizarParcial(paciente.getApellido(), paciente.getNombre(), id);
 	}
-	
-	@DeleteMapping(path = "/{id}")
-	public void borrar(@PathVariable Integer id){
-		this.pacienteService.borrar(id);
-	}
+
 }

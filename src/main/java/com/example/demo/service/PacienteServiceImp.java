@@ -33,9 +33,9 @@ public class PacienteServiceImp implements IPacienteService {
 	}
 
 	@Override
-	public Paciente buscar(Integer id) {
+	public Paciente buscar(String cedula) {
 		// TODO Auto-generated method stub
-		return this.pacienteRepository.seleccionar(id);
+		return this.pacienteRepository.seleccionar(cedula);
 	}
 
 	@Override
@@ -45,15 +45,9 @@ public class PacienteServiceImp implements IPacienteService {
 	}
 
 	@Override
-	public void borrar(Integer id) {
+	public PacienteTO buscarTO(String cedula) {
 		// TODO Auto-generated method stub
-		this.pacienteRepository.eliminar(id);
-	}
-
-	@Override
-	public PacienteTO buscarTO(Integer id) {
-		// TODO Auto-generated method stub
-		return this.convertirTO(this.pacienteRepository.seleccionar(id));
+		return this.convertirTO(this.pacienteRepository.seleccionar(cedula));
 	}
 
 	private PacienteTO convertirTO(Paciente pac) {
@@ -66,6 +60,7 @@ public class PacienteServiceImp implements IPacienteService {
 		pacT.setFechaNacimiento(pac.getFechaNacimiento());
 		pacT.setRol(pac.getRol());
 		pacT.setTelefono(pac.getTelefono());
+		pacT.setContraseña(pac.getContraseña());
 		return pacT;
 	}
 
@@ -79,6 +74,8 @@ public class PacienteServiceImp implements IPacienteService {
 		pacT.setFechaNacimiento(pac.getFechaNacimiento());
 		pacT.setRol(pac.getRol());
 		pacT.setTelefono(pac.getTelefono());
+		pacT.setContraseña(pac.getContraseña());
+
 		return pacT;
 	}
 
@@ -86,6 +83,12 @@ public class PacienteServiceImp implements IPacienteService {
 	public void guardarTo(PacienteTO paciente) {
 		// TODO Auto-generated method stub
 		this.guardar(this.convertir(paciente));
+	}
+
+	@Override
+	public boolean verificarCedulaExistente(String cedula) {
+		// TODO Auto-generated method stub
+		return this.pacienteRepository.verificarCedulaExistente(cedula);
 	}
 
 }

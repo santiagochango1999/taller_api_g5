@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import org.springframework.hateoas.RepresentationModel;
 
-
 public class PacienteTO extends RepresentationModel<PacienteTO> implements Serializable {
 	/**
 	 * 
@@ -17,7 +16,16 @@ public class PacienteTO extends RepresentationModel<PacienteTO> implements Seria
 	private String direccion;
 	private String telefono;
 	private LocalDateTime fechaNacimiento;
+	private String contraseña;
 	private String rol;
+
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
 
 	public Integer getId() {
 		return id;

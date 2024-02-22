@@ -3,6 +3,9 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -15,17 +18,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.modelo.Consulta;
 import com.example.demo.service.IConsultaService;
+import com.example.demo.service.to.ConsultaTO;
 
 @RestController
 @RequestMapping(path = "/consultas")
+@CrossOrigin
+
 public class ConsultaControllerRestFul {
 
 	@Autowired
 	private IConsultaService consultaService;
 
-	@GetMapping(path = "/{id}")
+	@GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Consulta buscar(@PathVariable Integer id) {
+		System.out.println(this.consultaService.buscar(id));
 		return this.consultaService.buscar(id);
+
 	}
 
 	@PostMapping
@@ -46,9 +54,10 @@ public class ConsultaControllerRestFul {
 
 	// REALIZAR CAMBIOS
 
-	@GetMapping
-	public List<Consulta> buscartodo() {
-		return this.consultaService.buscartodo();
+	@GetMapping(path = "/otro/{id}")
+	public ResponseEntity<List<ConsultaTO>> buscartodo(@PathVariable Integer id) {
+		List<ConsultaTO> lis = this.consultaService.obtenerC(id);
+		return ResponseEntity.status(200).body(lis);
 	}
 
 	@PatchMapping(path = "/{id}")

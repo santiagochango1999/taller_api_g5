@@ -10,15 +10,16 @@ public interface IPacienteService {
 
 	public void guardarTo(PacienteTO paciente);
 
+	public boolean verificarCedulaExistente(String cedula);
+
 	public void actualizar(Paciente paciente);
 
 	public void actualizarParcial(String apellido, String nombre, Integer id);
 
-	public Paciente buscar(Integer id);
+	public Paciente buscar(String cedula);
 
-	public PacienteTO buscarTO(Integer id);
+	public PacienteTO buscarTO(String cedula);
 
 	public List<Paciente> buscartodos(String genero);
 
-	public void borrar(Integer id);
 }

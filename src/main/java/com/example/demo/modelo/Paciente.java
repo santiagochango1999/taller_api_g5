@@ -3,6 +3,8 @@ package com.example.demo.modelo;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,6 +19,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "paciente")
+@JsonIgnoreProperties(value = "consulta")
+
 public class Paciente {
 
 	@Id
@@ -36,6 +40,8 @@ public class Paciente {
 	private String telefono;
 	@Column(name = "pcte_fecha_nacimiento")
 	private LocalDateTime fechaNacimiento;
+	@Column(name = "pcte_contraseña")
+	private String contraseña;
 	@Column(name = "pcte_rol")
 	private String rol;
 
@@ -45,6 +51,31 @@ public class Paciente {
 	@OneToOne(mappedBy = "paciente", cascade = CascadeType.ALL)
 	@JoinColumn(name = "paciente_id")
 	private HistoriaClinica historiaClinica;
+
+	
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
+
+	public List<Consulta> getConsulta() {
+		return consulta;
+	}
+
+	public void setConsulta(List<Consulta> consulta) {
+		this.consulta = consulta;
+	}
+
+	public HistoriaClinica getHistoriaClinica() {
+		return historiaClinica;
+	}
+
+	public void setHistoriaClinica(HistoriaClinica historiaClinica) {
+		this.historiaClinica = historiaClinica;
+	}
 
 	public Integer getId() {
 		return id;

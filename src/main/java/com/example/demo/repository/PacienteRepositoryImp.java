@@ -8,25 +8,26 @@ import com.example.demo.modelo.Paciente;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 
 @Repository
 @Transactional
 public class PacienteRepositoryImp implements IPacienteRepository {
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override
 	public void insertar(Paciente paciente) {
 		// TODO Auto-generated method stub
-this.entityManager.persist(paciente);
+		this.entityManager.persist(paciente);
 	}
 
 	@Override
 	public void actualizar(Paciente paciente) {
 		// TODO Auto-generated method stub
-this.entityManager.merge(paciente);
+		this.entityManager.merge(paciente);
 	}
 
 	@Override
@@ -36,9 +37,11 @@ this.entityManager.merge(paciente);
 	}
 
 	@Override
-	public Paciente seleccionar(Integer id) {
+	public Paciente seleccionar(String cedula) {
 		// TODO Auto-generated method stub
-		return this.entityManager.find(Paciente.class, id);
+		Query myquey = this.entityManager.createQuery("SELECT p FROM Paciente p WHERE p.cedula = :cedula");
+		myquey.setParameter("cedula", cedula);
+		return (Paciente) myquey.getSingleResult();
 	}
 
 	@Override
@@ -47,11 +50,15 @@ this.entityManager.merge(paciente);
 		return null;
 	}
 
-	@Override
-	public void eliminar(Integer id) {
-		// TODO Auto-generated method stub
-		this.entityManager.remove(this.seleccionar(id));
 
+	@Override
+	public boolean verificarCedulaExistente(String cedula) {
+		// TODO Auto-generated method stub
+		Query myquey = this.entityManager.createQuery("SELECT COUNT(p) FROM Paciente p WHERE p.cedula = :cedula",
+				Long.class);
+		myquey.setParameter("cedula", cedula);
+		Long count = (Long) myquey.getSingleResult();
+		return count > 0;
 	}
 
 }

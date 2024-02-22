@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.modelo.Consulta;
 import com.example.demo.repository.IConsultaRepository;
+import com.example.demo.service.to.ConsultaTO;
 
 @Service
 public class ConsultaServiceImp implements IConsultaService {
@@ -50,6 +51,13 @@ public class ConsultaServiceImp implements IConsultaService {
 	public void borrar(Integer id) {
 		// TODO Auto-generated method stub
 		this.consultaRepository.borrar(id);
+	}
+
+	@Override
+	public List<ConsultaTO> obtenerC(Integer id) {
+		// TODO Auto-generated method stub
+		return this.consultaRepository.obtenerC(id)
+				;
 	}
 
 }
