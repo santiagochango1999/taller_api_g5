@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "medico")
-@JsonIgnoreProperties(value = "consulta")
+@JsonIgnoreProperties(value = {"consulta", "departamento"})
 
 public class Medico {
 
@@ -42,6 +42,8 @@ public class Medico {
 	private String horarioAtencion;
 	@Column(name = "medi_codigo_medico")
 	private String codigoMedico;
+	@Column(name = "medi_contraseña")
+	private String contraseña;
 
 	@OneToMany(mappedBy = "medico")
 	private List<Consulta> consulta;
@@ -90,6 +92,22 @@ public class Medico {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
+
+	public List<Consulta> getConsulta() {
+		return consulta;
+	}
+
+	public void setConsulta(List<Consulta> consulta) {
+		this.consulta = consulta;
 	}
 
 	public String getEspecialidad() {

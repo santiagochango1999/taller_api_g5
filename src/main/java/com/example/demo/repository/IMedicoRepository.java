@@ -13,8 +13,10 @@ public interface IMedicoRepository {
 
 	public Medico seleccionar(Integer id);
 
-	public List<Medico> seleccionartodos(String genero);
+	public List<Medico> seleccionartodos();
 
 	public void eliminar(Integer id);
+
+	public boolean verificarCedulaExistente(String cedula);
 
 }

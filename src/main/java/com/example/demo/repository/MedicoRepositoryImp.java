@@ -8,6 +8,8 @@ import com.example.demo.modelo.Medico;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Repository
@@ -42,15 +44,26 @@ public class MedicoRepositoryImp implements IMedicoRepository {
 	}
 
 	@Override
-	public List<Medico> seleccionartodos(String genero) {
+	public List<Medico> seleccionartodos() {
 		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<Medico> query = entityManager.createQuery("SELECT m FROM Medico m", Medico.class);
+		return query.getResultList();
 	}
 
 	@Override
 	public void eliminar(Integer id) {
 		// TODO Auto-generated method stub
 		this.entityManager.remove(this.seleccionar(id));
+	}
+
+	@Override
+	public boolean verificarCedulaExistente(String cedula) {
+		// TODO Auto-generated method stub
+		Query myquey = this.entityManager.createQuery("SELECT COUNT(p) FROM Medico p WHERE p.cedula = :cedula",
+				Long.class);
+		myquey.setParameter("cedula", cedula);
+		Long count = (Long) myquey.getSingleResult();
+		return count > 0;
 	}
 
 }

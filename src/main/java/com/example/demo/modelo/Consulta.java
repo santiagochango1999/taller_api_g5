@@ -35,8 +35,8 @@ public class Consulta {
 	@JoinColumn(name = "cons_factura_id")
 	private Factura factura;
 
-	@OneToOne
-	@JoinColumn(name = "cons_serviciomedico_id")
+	@ManyToOne
+    @JoinColumn(name = "cons_serviciomedico_id")
 	private ServiciosMedicos serviciosMedicos;
 
 	public Integer getId() {
