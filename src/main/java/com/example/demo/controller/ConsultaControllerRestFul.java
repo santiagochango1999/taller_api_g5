@@ -1,8 +1,11 @@
 package com.example.demo.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,11 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.modelo.Consulta;
 import com.example.demo.service.IConsultaService;
 import com.example.demo.service.to.ConsultaTO;
+import com.example.demo.service.to.ConsultaTO2;
 
 @RestController
 @RequestMapping(path = "/consultas")
@@ -38,7 +43,40 @@ public class ConsultaControllerRestFul {
 
 	@PostMapping
 	public void guardar(@RequestBody Consulta consulta) {
+
 		this.consultaService.ingresar(consulta);
+	}
+
+	// verificacion de fecha y idmedico
+
+	@GetMapping(params = { "fecha", "idMedico" }, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> verificarCedulaExistente(@RequestParam LocalDateTime fecha,
+			@RequestParam Integer idMedico) {
+		boolean verificacion = this.consultaService.verificarFDExistente(fecha, idMedico);
+		System.out.println(ResponseEntity.ok(verificacion));
+		return ResponseEntity.ok(verificacion);
+	}
+
+	@GetMapping(path = "/otro/{id}")
+	public ResponseEntity<List<ConsultaTO>> buscartodo(@PathVariable Integer id) {
+		List<ConsultaTO> lis = this.consultaService.obtenerC(id);
+		return ResponseEntity.status(200).body(lis);
+	}
+
+	// Consultar todo
+
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ConsultaTO2>> buscartodos() {
+		List<ConsultaTO2> listacon = this.consultaService.buscartodo();
+		return ResponseEntity.status(HttpStatus.OK).body(listacon);
+	}
+
+	// Consultar todo FILTRO
+
+	@GetMapping(path = "/filtro/{nombre}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ConsultaTO2>> buscartodosfiltro(@PathVariable String nombre) {
+		List<ConsultaTO2> listacon = this.consultaService.buscartodoFiltro(nombre);
+		return ResponseEntity.status(HttpStatus.OK).body(listacon);
 	}
 
 	@PutMapping(path = "/{id}")
@@ -53,12 +91,6 @@ public class ConsultaControllerRestFul {
 	}
 
 	// REALIZAR CAMBIOS
-
-	@GetMapping(path = "/otro/{id}")
-	public ResponseEntity<List<ConsultaTO>> buscartodo(@PathVariable Integer id) {
-		List<ConsultaTO> lis = this.consultaService.obtenerC(id);
-		return ResponseEntity.status(200).body(lis);
-	}
 
 	@PatchMapping(path = "/{id}")
 	public void actualizarParcial() {

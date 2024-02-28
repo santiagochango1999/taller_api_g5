@@ -15,6 +15,8 @@ public class DepartamentoServiceImp implements IDepartamentoService {
 
 	@Autowired
 	private IDepartamentoRepository departamentoRepository;
+	@Autowired
+	private IMedicoService iMedicoService;
 
 	@Override
 	public void crear(Departamento departamento) {
@@ -56,6 +58,7 @@ public class DepartamentoServiceImp implements IDepartamentoService {
 		dto.setId(dep.getId());
 		dto.setNombre(dep.getNombre());
 		dto.setTelefono(dep.getTelefono());
+		dto.setMedico(this.iMedicoService.seleccionarMedicoDepartamento(dep.getId()));
 		return dto;
 	}
 

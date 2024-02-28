@@ -19,4 +19,6 @@ public interface IMedicoRepository {
 
 	public boolean verificarCedulaExistente(String cedula);
 
+	public List<Medico> seleccionarMedicoDepartamento(Integer id);
+
 }

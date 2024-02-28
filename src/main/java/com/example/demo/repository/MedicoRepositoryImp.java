@@ -66,4 +66,11 @@ public class MedicoRepositoryImp implements IMedicoRepository {
 		return count > 0;
 	}
 
+	@Override
+	public List<Medico> seleccionarMedicoDepartamento(Integer id) {
+		Query myquery = this.entityManager.createQuery("Select m FROM Medico m WHERE m.departamento.id=:idDepa");
+		myquery.setParameter("idDepa", id);
+		return myquery.getResultList();
+	}
+
 }

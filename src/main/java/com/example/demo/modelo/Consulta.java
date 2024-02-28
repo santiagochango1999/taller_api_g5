@@ -4,18 +4,22 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "consulta")
-
 public class Consulta {
 
 	@Id
+	@GeneratedValue(generator = "seq_con", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "seq_con", sequenceName = "seq_con", allocationSize = 1)
 	@Column(name = "cons_id")
 	private Integer id;
 	@Column(name = "cons_fecha")
@@ -38,6 +42,14 @@ public class Consulta {
 	@ManyToOne
     @JoinColumn(name = "cons_serviciomedico_id")
 	private ServiciosMedicos serviciosMedicos;
+
+	public ServiciosMedicos getServiciosMedicos() {
+		return serviciosMedicos;
+	}
+
+	public void setServiciosMedicos(ServiciosMedicos serviciosMedicos) {
+		this.serviciosMedicos = serviciosMedicos;
+	}
 
 	public Integer getId() {
 		return id;

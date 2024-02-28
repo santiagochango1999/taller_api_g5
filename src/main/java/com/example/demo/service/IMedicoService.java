@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.util.List;
 
 import com.example.demo.modelo.Medico;
+import com.example.demo.service.to.MedicoTO;
 
 public interface IMedicoService {
 	public void guardar(Medico medico);
@@ -19,4 +20,5 @@ public interface IMedicoService {
 
 	public void borrar(Integer id);
 
+	public List<MedicoTO> seleccionarMedicoDepartamento(Integer id);
 }
