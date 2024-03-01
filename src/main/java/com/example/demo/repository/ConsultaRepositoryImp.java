@@ -94,6 +94,23 @@ public class ConsultaRepositoryImp implements IConsultaRepository {
 	}
 
 	@Override
+	public List<ConsultaTO> obtenerC2(Integer id, String cedula) {
+		TypedQuery<ConsultaTO> query = entityManager.createQuery(
+				"SELECT c.id, c.fechaConsulta, c.motivo, m.nombre AS nombreMedico, s.nombre AS nombreServicio "
+						+ "FROM Consulta c " + "JOIN c.medico m " + "JOIN c.serviciosMedicos s "
+						+ "WHERE c.paciente.id = :idPaciente AND c.medico.cedula = :cedula",
+				ConsultaTO.class);
+
+		query.setParameter("idPaciente", id);
+		query.setParameter("cedula", cedula);
+		List<ConsultaTO> resultados = query.getResultList();
+		System.out.println("valores ");
+		System.out.println("OTRO:" + resultados);
+		return resultados;
+
+	}
+
+	@Override
 	public boolean verificarFDExistente(LocalDateTime fecha, Integer idMedico) {
 		// TODO Auto-generated method stub
 		Query myquey = this.entityManager.createQuery(

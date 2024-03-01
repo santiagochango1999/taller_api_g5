@@ -14,6 +14,8 @@ public interface IConsultaRepository {
 
 	public List<ConsultaTO> obtenerC(Integer id);
 
+	public List<ConsultaTO> obtenerC2(Integer id, String cedula);
+
 	public boolean verificarFDExistente(LocalDateTime fecha, Integer idMedico);
 
 	// verificar por cuales parametros vamos actualizar parcialmente

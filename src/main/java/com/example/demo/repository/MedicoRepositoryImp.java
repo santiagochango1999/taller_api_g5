@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.modelo.Medico;
+import com.example.demo.modelo.Paciente;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -38,9 +39,11 @@ public class MedicoRepositoryImp implements IMedicoRepository {
 	}
 
 	@Override
-	public Medico seleccionar(Integer id) {
+	public Medico seleccionar(String cedula) {
 		// TODO Auto-generated method stub
-		return this.entityManager.find(Medico.class, id);
+		Query myquey = this.entityManager.createQuery("SELECT m FROM Medico m WHERE m.cedula = :cedula");
+		myquey.setParameter("cedula", cedula);
+		return (Medico) myquey.getSingleResult();
 	}
 
 	@Override
@@ -48,12 +51,6 @@ public class MedicoRepositoryImp implements IMedicoRepository {
 		// TODO Auto-generated method stub
 		TypedQuery<Medico> query = entityManager.createQuery("SELECT m FROM Medico m", Medico.class);
 		return query.getResultList();
-	}
-
-	@Override
-	public void eliminar(Integer id) {
-		// TODO Auto-generated method stub
-		this.entityManager.remove(this.seleccionar(id));
 	}
 
 	@Override

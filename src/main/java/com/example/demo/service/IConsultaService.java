@@ -15,6 +15,8 @@ public interface IConsultaService {
 
 	public List<ConsultaTO> obtenerC(Integer id);
 
+	public List<ConsultaTO> obtenerC2(Integer id, String cedula);
+
 	public boolean verificarFDExistente(LocalDateTime fecha, Integer idMedico);
 
 	// verificar por cuales parametros vamos actualizar parcialmente
@@ -25,6 +27,8 @@ public interface IConsultaService {
 	public List<ConsultaTO2> buscartodo();
 
 	public List<ConsultaTO2> buscartodoFiltro(String nombre);
+
+	public List<ConsultaTO2> buscartodoFiltro2(String nombre);
 
 	public void borrar(Integer id);
 }

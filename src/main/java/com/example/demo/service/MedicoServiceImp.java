@@ -35,21 +35,15 @@ public class MedicoServiceImp implements IMedicoService {
 	}
 
 	@Override
-	public Medico buscar(Integer id) {
+	public Medico buscar(String cedula) {
 		// TODO Auto-generated method stub
-		return this.medicoRepository.seleccionar(id);
+		return this.medicoRepository.seleccionar(cedula);
 	}
 
 	@Override
 	public List<Medico> buscartodos() {
 		// TODO Auto-generated method stub
 		return this.medicoRepository.seleccionartodos();
-	}
-
-	@Override
-	public void borrar(Integer id) {
-		// TODO Auto-generated method stub
-		this.medicoRepository.eliminar(id);
 	}
 
 	@Override

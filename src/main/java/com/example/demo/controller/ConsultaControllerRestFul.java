@@ -63,6 +63,12 @@ public class ConsultaControllerRestFul {
 		return ResponseEntity.status(200).body(lis);
 	}
 
+	@GetMapping(path = "/otro2/{id}/{cedula}")
+	public ResponseEntity<List<ConsultaTO>> buscartodo2(@PathVariable Integer id, @PathVariable String cedula) {
+		List<ConsultaTO> lis = this.consultaService.obtenerC2(id, cedula);
+		return ResponseEntity.status(200).body(lis);
+	}
+
 	// Consultar todo
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -76,6 +82,12 @@ public class ConsultaControllerRestFul {
 	@GetMapping(path = "/filtro/{nombre}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ConsultaTO2>> buscartodosfiltro(@PathVariable String nombre) {
 		List<ConsultaTO2> listacon = this.consultaService.buscartodoFiltro(nombre);
+		return ResponseEntity.status(HttpStatus.OK).body(listacon);
+	}
+
+	@GetMapping(path = "/filtro2/{nombre}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ConsultaTO2>> buscartodosfiltro2(@PathVariable String nombre) {
+		List<ConsultaTO2> listacon = this.consultaService.buscartodoFiltro2(nombre);
 		return ResponseEntity.status(HttpStatus.OK).body(listacon);
 	}
 

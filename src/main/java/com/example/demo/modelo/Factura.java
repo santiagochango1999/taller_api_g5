@@ -23,8 +23,6 @@ import jakarta.persistence.Table;
 public class Factura {
 
 	@Id
-	@GeneratedValue(generator = "seq_fac", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "seq_fac", sequenceName = "seq_fac", allocationSize = 1)
 	@Column(name = "fact_id")
 	private Integer id;
 	@Column(name = "fact_fecha")

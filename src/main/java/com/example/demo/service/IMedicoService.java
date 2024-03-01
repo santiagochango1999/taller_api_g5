@@ -14,11 +14,9 @@ public interface IMedicoService {
 
 	public void actualizarParcial(String apellido, String nombre, Integer id);
 
-	public Medico buscar(Integer id);
+	public Medico buscar(String cedula);
 
 	public List<Medico> buscartodos();
-
-	public void borrar(Integer id);
 
 	public List<MedicoTO> seleccionarMedicoDepartamento(Integer id);
 }

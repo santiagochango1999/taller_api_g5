@@ -11,11 +11,9 @@ public interface IMedicoRepository {
 
 	public void actualizarParcial(String apellido, String nombre, Integer id);
 
-	public Medico seleccionar(Integer id);
+	public Medico seleccionar(String cedula);
 
 	public List<Medico> seleccionartodos();
-
-	public void eliminar(Integer id);
 
 	public boolean verificarCedulaExistente(String cedula);
 

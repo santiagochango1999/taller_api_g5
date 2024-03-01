@@ -71,6 +71,19 @@ public class ConsultaServiceImp implements IConsultaService {
 	}
 
 	@Override
+	public List<ConsultaTO2> buscartodoFiltro2(String nombre) {
+		// TODO Auto-generated method stub
+		List<Consulta> listaconsulta = this.consultaRepository.seleccionartodoFiltro(nombre);
+		List<ConsultaTO2> list = new ArrayList<>();
+		for (Consulta cons : listaconsulta) {
+			ConsultaTO2 consultaTO2 = this.convertir2(cons);
+			list.add(consultaTO2);
+		}
+
+		return list;
+	}
+
+	@Override
 	public void borrar(Integer id) {
 		// TODO Auto-generated method stub
 		this.consultaRepository.borrar(id);
@@ -80,6 +93,11 @@ public class ConsultaServiceImp implements IConsultaService {
 	public List<ConsultaTO> obtenerC(Integer id) {
 		// TODO Auto-generated method stub
 		return this.consultaRepository.obtenerC(id);
+	}
+
+	public List<ConsultaTO> obtenerC2(Integer id, String cedula) {
+		// TODO Auto-generated method stub
+		return this.consultaRepository.obtenerC2(id, cedula);
 	}
 
 	@Override
@@ -93,6 +111,16 @@ public class ConsultaServiceImp implements IConsultaService {
 		to2.setPaciente(consulta.getPaciente());
 		to2.setStart(consulta.getFechaConsulta());
 		to2.setTitle("RESERVADO");
+
+		return to2;
+	}
+
+	private ConsultaTO2 convertir2(Consulta consulta) {
+		ConsultaTO2 to2 = new ConsultaTO2();
+		to2.setId(consulta.getId());
+		to2.setPaciente(consulta.getPaciente());
+		to2.setStart(consulta.getFechaConsulta());
+		to2.setTitle(consulta.getMotivo());
 
 		return to2;
 	}

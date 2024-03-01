@@ -28,9 +28,9 @@ public class MedicoControllerRestFul {
 	@Autowired
 	private IMedicoService medicoService;
 
-	@GetMapping(path = "/{id}")
-	public Medico buscar(@PathVariable Integer id) {
-		return this.medicoService.buscar(id);
+	@GetMapping(path = "/{cedula}")
+	public Medico buscar(@PathVariable String cedula) {
+		return this.medicoService.buscar(cedula);
 
 	}
 
@@ -63,8 +63,4 @@ public class MedicoControllerRestFul {
 		this.medicoService.actualizarParcial(medico.getApellido(), medico.getNombre(), id);
 	}
 
-	@DeleteMapping(path = "/{id}")
-	public void borrar(@PathVariable Integer id) {
-		this.medicoService.borrar(id);
-	}
 }
